@@ -24,15 +24,14 @@ class PostModel extends CI_Model
 
   public function findOneById($id, $status = null)
   {
-    $q = $this->db->where('id', $id, "status", $status)->limit(1)->get('test_posts');
-    // $q = null;
-    // if ($status == null) {
+    $q = null;
+    if ($status == null) {
 
-    //   $q = $this->db->where('id', $id)->limit(1)->get('test_posts');
+      $q = $this->db->where('id', $id)->limit(1)->get('test_posts');
 
-    // } else {
-    //   $q = $this->db->where('id', $id, "status", $status)->limit(1)->get('test_posts');
-    // }
+    } else {
+      $q = $this->db->where(['id' => $id, "status" => $status])->limit(1)->get('test_posts');
+    }
 
     if ($q->num_rows() == 1) {
       return $q->row_array();

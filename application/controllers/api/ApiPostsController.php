@@ -80,8 +80,7 @@ class ApiPostsController extends RestController
     $status = $this->input->get("status");
 
     $data = null;
-    if ($status == '1') {
-
+    if ($status != null) {
       $data = $this->model->findOneById($id, $status);
     } else {
       $data = $this->model->findOneById($id);
