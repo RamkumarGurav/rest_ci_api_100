@@ -61,3 +61,5 @@ $route['api/fy'] = 'api/ApiFinancialYear/getAllActive';
 $route['api/posts']['POST'] = 'api/ApiPostsController/createOne';
 $route['api/posts']['GET'] = 'api/ApiPostsController/getAll';
 $route['api/posts/(:num)']['GET'] = 'api/ApiPostsController/getOneById/$1';
+$route['api/posts/(:num)']['PUT'] = 'api/ApiPostsController/updateOne/$1';
+$route['api/posts/(:num)']['DELETE'] = 'api/ApiPostsController/deleteOne/$1';

@@ -45,33 +45,7 @@ class ApiPostsController extends RestController
 
 
 
-  public function createOne_post()
-  {
-    $data = [
-      "title" => $this->input->post('title'),
-      "description" => $this->input->post('description')
-    ];
 
-    $result = $this->model->createOne($data);
-
-    if (!empty ($result)) {
-      $this->response([
-        'status' => true,
-        'message' => 'Successfully Created New Post',
-        'data' => $result
-      ], RestController::HTTP_OK);
-    } else {
-      $this->response([
-        'status' => false,
-        'message' => 'Failed to Create New Post'
-      ], RestController::HTTP_BAD_REQUEST);
-    }
-
-
-
-
-
-  }
 
 
   public function getOneById_get($id)
@@ -99,4 +73,82 @@ class ApiPostsController extends RestController
 
 
   }
+
+  public function createOne_post()
+  {
+    $data = [
+      "title" => $this->input->post('title'),
+      "description" => $this->input->post('description')
+    ];
+
+    $result = $this->model->createOne($data);
+
+    if (!empty ($result)) {
+      $this->response([
+        'status' => true,
+        'message' => 'Successfully Created New Post',
+        'data' => $result
+      ], RestController::HTTP_CREATED);
+    } else {
+      $this->response([
+        'status' => false,
+        'message' => 'Failed to Create New Post'
+      ], RestController::HTTP_BAD_REQUEST);
+    }
+
+
+
+
+
+  }
+
+  public function updateOne_put($id)
+  {
+    $data = [
+      "title" => $this->input->post('title'),
+      "description" => $this->input->post('description')
+    ];
+
+    $result = $this->model->updateOne($data, $id);
+
+    if (!empty ($result)) {
+      $this->response([
+        'status' => true,
+        'message' => 'Successfully updated',
+        'data' => $result
+      ], RestController::HTTP_OK);
+    } else {
+      $this->response([
+        'status' => false,
+        'message' => 'Failed to Update '
+      ], RestController::HTTP_BAD_REQUEST);
+    }
+
+
+
+  }
+
+
+  public function deleteOne_delete($id)
+  {
+
+
+    $result = $this->model->deleteOne($id);
+
+    if (!empty ($result)) {
+      $this->response([
+        'status' => true,
+        'message' => "Successfully Deleted The Post with Id:$id",
+      ], RestController::HTTP_OK);
+    } else {
+      $this->response([
+        'status' => false,
+        'message' => 'Failed to Delete '
+      ], RestController::HTTP_BAD_REQUEST);
+    }
+
+
+
+  }
+
 }

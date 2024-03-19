@@ -67,4 +67,30 @@ class PostModel extends CI_Model
 
 
 
+  public function updateOne($id, $data)
+  {
+    $this->db->where('id', $id);
+    $q = $this->db->update('test_posts', $data);
+
+    if (!empty ($q)) {
+      return $this->findOneById($id);
+    } else {
+      return false;
+    }
+
+  }
+
+
+  public function deleteOne($id)
+  {
+    $this->db->where('id', $id);
+    $q = $this->db->delete('test_posts');
+
+    if (!empty ($q)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 }
