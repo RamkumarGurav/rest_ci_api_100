@@ -34,7 +34,7 @@ class Auth extends CI_Controller
   {
     $this->load->library('form_validation');
     $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
-    $this->form_validation->set_rules('password', 'Password', 'required|trim|md5');
+    $this->form_validation->set_rules('password', 'Password', 'required|trim');
 
 
     if ($this->form_validation->run()) {
@@ -54,7 +54,7 @@ class Auth extends CI_Controller
         $this->session->set_userdata("user", $userData);
         $this->session->set_flashdata("toastClass", "alert-success");
         $this->session->set_flashdata("toastMsg", "Successfully Logged in");
-        redirect("/");
+        redirect("/dashboard");
       }
 
 
