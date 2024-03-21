@@ -49,14 +49,19 @@ defined('BASEPATH') or exit ('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'Dashboard';
+$route['default_controller'] = 'AuthController';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+//{--------------ADMIN--------------
+$route['login'] = 'AuthController/login';
+$route['admin/dashboard'] = 'admin/DashboardController/index';
+$route['admin/financial-years/listing'] = 'admin/FinancialYearController/index';
+$route['admin/albums/listing'] = 'admin/AlbumController/index';
+$route['admin/gallery/listing'] = 'admin/GalleryController/index';
+//--------------------------------------------------}
 
-$route['login'] = 'Auth/login';
-$route['dashboard'] = 'admin/Dashboard/index';
-
+//{--------------public api--------------
 $route['api/demo'] = 'api/ApiDemoController/index';
 $route['api/fy'] = 'api/ApiFinancialYear/getAllActive';
 $route['api/posts']['POST'] = 'api/ApiPostsController/createOne';

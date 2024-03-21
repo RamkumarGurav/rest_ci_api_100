@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') or exit ('No direct script access allowed');
-class Dashboard extends CI_Controller
+class DashboardController extends CI_Controller
 {
   public function index()
   {
@@ -8,7 +8,11 @@ class Dashboard extends CI_Controller
     if (empty ($this->session->userdata('user'))) {
       redirect('login');
     } else {
+
+
       $this->load->view('Dashboard/index');
     }
   }
+
+
 }

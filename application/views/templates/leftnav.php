@@ -1,11 +1,7 @@
 <?php
 
 
-$currentPath = $_SERVER['PHP_SELF'];
-$pathArr = explode("/", $currentPath);
-$directoryName = $pathArr[count($pathArr) - 2];
-$fileName = $pathArr[count($pathArr) - 1];
-$file = $directoryName . "/" . $fileName;
+$relative_path = str_replace(base_url(), '', current_url());
 
 
 ?>
@@ -15,7 +11,7 @@ $file = $directoryName . "/" . $fileName;
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
-  <a href="index3.html" class="brand-link">
+  <a href="<?= base_url() . "admin/dashboard" ?>" class="brand-link">
     <img src='<?= base_url() . "assets/dist/img/AdminLTELogo.png" ?>' alt="AdminLTE Logo"
       class="brand-image img-circle elevation-3" style="opacity: .8">
     <span class="brand-text font-weight-light">
@@ -59,17 +55,19 @@ $file = $directoryName . "/" . $fileName;
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-        <li class="nav-item <?= current_url() == base_url() ? "menu-open" : "" ?>"">
-            <a href=" #" class="nav-link <?= current_url() == base_url() ? "active" : "" ?>">
-          <i class="nav-icon fas fa-tachometer-alt"></i>
-          <p>
-            Dashboard
-            <i class="right fas fa-angle-left"></i>
-          </p>
+        <li class="nav-item <?= stripos(current_url(), "admin/dashboard") !== false ? "menu-open" : " " ?>">
+          <a href=" <?= base_url() . "admin/dashboard" ?>"
+            class="nav-link <?= stripos(current_url(), "admin/dashboard") !== false ? "active" : "" ?>">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+              Dashboard
+              <i class="right fas fa-angle-left"></i>
+            </p>
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="<?= base_url() ?>" class="nav-link  <?= current_url() == base_url() ? "active" : "" ?>">
+              <a href="<?= base_url() . "admin/dashboard" ?>"
+                class="nav-link  <?= stripos(current_url(), "admin/dashboard") !== false ? "active" : "" ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Dashboard</p>
               </a>
@@ -77,10 +75,9 @@ $file = $directoryName . "/" . $fileName;
 
           </ul>
         </li>
-        <li
-          class="nav-item <?= ($file == "financial-year/listing.php" || $file == "financial-year/edit.php") ? "menu-open" : "" ?>">
-          <a href="#"
-            class="nav-link    <?= ($file == "financial-year/listing.php" || $file == "financial-year/edit.php") ? "active" : "" ?>">
+        <li class="nav-item <?= stripos(current_url(), "admin/financial-years") !== false ? "menu-open" : "" ?>">
+          <a href="<?= base_url() . "admin/financial-years/listing" ?>"
+            class="nav-link    <?= stripos(current_url(), "admin/financial-years") !== false ? "active" : "" ?>">
             <i class="nav-icon fas fa-copy"></i>
             <p>
               Financial Year
@@ -89,8 +86,8 @@ $file = $directoryName . "/" . $fileName;
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="../financial-year/listing.php"
-                class="nav-link <?= ($file == "financial-year/listing.php" || $file == "financial-year/edit.php") ? "active" : "" ?>">
+              <a href="<?= base_url() . "admin/financial-years/listing" ?>"
+                class="nav-link <?= stripos(current_url(), "admin/financial-years") !== false ? "active" : "" ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Financial Year</p>
               </a>
@@ -100,9 +97,9 @@ $file = $directoryName . "/" . $fileName;
         </li>
 
         <li
-          class="nav-item <?= ($file == "album/listing.php" || $file == "album/show.php" || $file == "gallery/listing.php" || $file == "album/edit.php" || $file == "gallery/add.php" || $file == "gallery/edit.php") ? "menu-open" : "" ?>">
-          <a href="#"
-            class="nav-link <?= ($file == "album/listing.php" || $file == "album/show.php" || $file == "gallery/listing.php" || $file == "album/edit.php" || $file == "gallery/add.php" || $file == "gallery/edit.php") ? "active" : "" ?>">
+          class="nav-item <?= stripos(current_url(), "admin/albums") !== false || stripos(current_url(), "admin/gallery") !== false ? "menu-open" : "" ?>">
+          <a href="<?= base_url() . "admin/albums/listing" ?>"
+            class="nav-link <?= stripos(current_url(), "admin/albums") !== false || stripos(current_url(), "admin/gallery") !== false ? "active" : "" ?>">
             <i class="nav-icon fas fa-tree"></i>
             <p>
               Album
@@ -111,15 +108,15 @@ $file = $directoryName . "/" . $fileName;
           </a>
           <ul class="nav nav-treeview ">
             <li class="nav-item">
-              <a href="../album/listing.php?fyID=all"
-                class="nav-link <?= ($file == "album/listing.php" || $file == "album/show.php" || $file == "album/edit.php") ? "active" : "" ?>">
+              <a href="<?= base_url() . "admin/albums/listing" ?>"
+                class="nav-link <?= stripos(current_url(), "admin/albums") !== false ? "active" : "" ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Album</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="../gallery/listing.php"
-                class="nav-link <?= ($file == "gallery/listing.php" || $file == "gallery/add.php" || $file == "gallery/edit.php") ? "active" : "" ?>">
+              <a href="<?= base_url() . "admin/gallery/listing" ?>"
+                class="nav-link <?= stripos(current_url(), "admin/gallery") !== false ? "active" : "" ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Album Gallery</p>
               </a>

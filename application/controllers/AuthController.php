@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') or exit ('No direct script access allowed');
-class Auth extends CI_Controller
+class AuthController extends CI_Controller
 {
 
   public function __construct()
@@ -54,7 +54,7 @@ class Auth extends CI_Controller
         $this->session->set_userdata("user", $userData);
         $this->session->set_flashdata("toastClass", "alert-success");
         $this->session->set_flashdata("toastMsg", "Successfully Logged in");
-        redirect("/dashboard");
+        redirect("/admin/dashboard");
       }
 
 

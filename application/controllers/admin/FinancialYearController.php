@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') or exit ('No direct script access allowed');
-class FinancialYear extends CI_Controller
+class FinancialYearController extends CI_Controller
 {
 
 
@@ -12,6 +12,11 @@ class FinancialYear extends CI_Controller
   public function index()
   {
 
+    $allYears = $this->model->findAll();
+    // echo "<pre> <br>";
+    // print_r(json_encode($allYears));
+    // exit;
+    $this->load->view('FinancialYear/index', ["allYears" => $allYears]);
   }
 
   public function getAllActive()

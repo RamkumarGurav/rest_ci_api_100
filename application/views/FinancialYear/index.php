@@ -1,21 +1,6 @@
 <?php
-
-$base_url = "http://localhost/xampp/MARS/appolopublicschool.com/";
-session_start();
-$_SESSION['album_data'] = [];
-$_SESSION['gallery_data'] = [];
-if (!isset ($_SESSION["user"])) {
-  header("Location: {$base_url}admin");
-  exit();
-}
-
-include "../controller/Login.php";
-include "../controller/FinancialYear.php";
-
-$years_json = json_encode($years);
-
-include ("../inc/header.php");
-include ("../inc/leftnav.php");
+$this->load->view("templates/header");
+$this->load->view("templates/leftnav");
 ?>
 
 
@@ -29,7 +14,9 @@ include ("../inc/leftnav.php");
 
 
 
-<!-- Content Wrapper. Contains page content -->
+
+
+<!-- Content Wrapper. Contains page content --> -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -79,7 +66,7 @@ include ("../inc/leftnav.php");
 
                 </thead>
                 <tbody>
-                  <?php foreach ($years as $index => $year): ?>
+                  <?php foreach ($allYears as $index => $year): ?>
                     <tr>
                       <td class="position-relative px-4"><input type="checkbox" class="year-checkbox position-absolute"
                           style="top:50%;left:50%;" value="<?php echo $year['id']; ?>"></td>
@@ -123,11 +110,11 @@ include ("../inc/leftnav.php");
   </section>
 </div>
 
-<?php include ("../inc/footer.php"); ?>
 
+<?php $this->load->view("templates/footer"); ?>
 <script>
   var toastElementFE = $("#customToastFE");
-  var numOfYears = "<?php echo $years_count; ?>";
+  var numOfYears = "<?php echo count($allYears); ?>";
 
   function getSelectedYears() {
     const selectedYears = [];
