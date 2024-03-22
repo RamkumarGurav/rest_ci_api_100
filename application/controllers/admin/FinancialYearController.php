@@ -15,8 +15,8 @@ class FinancialYearController extends CI_Controller
     $allYears = $this->model->findAll();
     // echo "<pre> <br>";
     // print_r(json_encode($allYears));
-    // exit;
-    $this->load->view('FinancialYear/index', ["allYears" => $allYears]);
+    $baseUrl = base_url();
+    $this->load->view('FinancialYear/index', ["allYears" => $allYears, "baseUrl" => $baseUrl]);
   }
 
   public function getAllActive()
@@ -61,5 +61,113 @@ class FinancialYearController extends CI_Controller
   }
 
 
+  public function activate()
+  {
 
+    $ids = $this->input->post("ids");
+    echo "<pre> <br>";
+    print_r(json_encode($ids));
+    exit;
+    // var_dump($ids);
+    foreach ($ids as $id) {
+      $this->model->updateOneByColumnName('id', $id, ["status" => "1"]);
+    }
+    $_SESSION["toast_message"] = "Sucessfully Activated";
+    $_SESSION["toast_type"] = "alert-success";
+    exit();
+  }
+
+  public function activate_multiple()
+  {
+
+    $ids = $this->input->post("ids");
+    $data = [];
+    foreach ($ids as $id) {
+      $data[] = ["id" => $id, "status" => "1"];
+    }
+
+
+
+
+    $result = $this->model->updateMultipleByData($data);
+    if ($result) {
+      $response = ["status" => true];
+    } else {
+      $response = ["status" => false];
+    }
+
+
+
+    // Sending JSON response back to the client
+    $this->output
+      ->set_content_type('application/json')
+      ->set_output(json_encode($response));
+
+  }
+
+  public function block()
+  {
+    $ids = $this->input->post("ids");
+    echo "<pre> <br>";
+    print_r(json_encode($ids));
+    exit;
+    foreach ($ids as $id) {
+      $this->model->updateOneByColumnName('id', $id, ["status" => "0"]);
+    }
+    $_SESSION["toast_message"] = "Sucessfully Blocked";
+    $_SESSION["toast_type"] = "alert-success";
+    exit();
+  }
+
+  public function block_multiple()
+  {
+    $ids = $this->input->post("ids");
+    $data = [];
+    foreach ($ids as $id) {
+      $data[] = ["id" => $id, "status" => "0"];
+    }
+
+
+
+
+    $result = $this->model->updateMultipleByData($data);
+    if ($result) {
+      $response = ["status" => true];
+    } else {
+      $response = ["status" => false];
+    }
+
+
+
+    // Sending JSON response back to the client
+    $this->output
+      ->set_content_type('application/json')
+      ->set_output(json_encode($response));
+
+  }
+  public function delete_multiple()
+  {
+    $ids = $this->input->post("ids");
+    $data = [];
+    foreach ($ids as $id) {
+      $data[] = ["id" => $id];
+    }
+
+    $result = $this->model->deleteMultipleByData($data);
+
+    if ($result) {
+      $response = ["status" => true];
+    } else {
+      $response = ["status" => false];
+    }
+
+
+
+    // Sending JSON response back to the client
+    $this->output
+      ->set_content_type('application/json')
+      ->set_output(json_encode($response));
+
+
+  }
 }

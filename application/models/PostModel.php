@@ -81,6 +81,7 @@ class PostModel extends CI_Model
   }
 
 
+
   public function deleteOne($id)
   {
     $this->db->where('id', $id);

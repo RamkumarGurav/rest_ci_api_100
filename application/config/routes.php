@@ -62,7 +62,7 @@ $route['admin/gallery/listing'] = 'admin/GalleryController/index';
 //--------------------------------------------------}
 
 //{--------------public api--------------
-$route['api/demo'] = 'api/ApiDemoController/index';
+$route['api/test'] = 'api/ApiDemoController/index';
 $route['api/fy'] = 'api/ApiFinancialYear/getAllActive';
 $route['api/posts']['POST'] = 'api/ApiPostsController/createOne';
 $route['api/posts']['GET'] = 'api/ApiPostsController/getAll';

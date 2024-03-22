@@ -11,6 +11,14 @@ class ApiDemoController extends RestController
 {
   public function index_get()
   {
-    echo "Hi I am Restful";
+    $ids = [1, 2, 3, 4];
+    $data = [];
+    foreach ($ids as $id) {
+      $data[] = ["id" => $id];
+    }
+
+    echo "<pre> <br>";
+    print_r($data);
+    exit;
   }
 }

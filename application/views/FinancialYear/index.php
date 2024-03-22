@@ -1,6 +1,7 @@
 <?php
 $this->load->view("templates/header");
 $this->load->view("templates/leftnav");
+
 ?>
 
 
@@ -16,7 +17,7 @@ $this->load->view("templates/leftnav");
 
 
 
-<!-- Content Wrapper. Contains page content --> -->
+<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -115,6 +116,7 @@ $this->load->view("templates/leftnav");
 <script>
   var toastElementFE = $("#customToastFE");
   var numOfYears = "<?php echo count($allYears); ?>";
+  var baseUrl = "<?php echo $baseUrl; ?>";
 
   function getSelectedYears() {
     const selectedYears = [];
@@ -140,12 +142,13 @@ $this->load->view("templates/leftnav");
   function activateSelectedYears() {
     const selectedYears = getSelectedYears();
     if (selectedYears.length > 0) {
-      $.post("../controller/FinancialYear.php?fy_action=activate", {
+      $.post(`${baseUrl}admin/FinancialYearController/activate_multiple`, {
         ids: selectedYears
       },
         function (data, status) {
-          if (status == "success") {
-            console.log(status);
+          console.log(data);
+          console.log(status);
+          if (data.status == true) {
             // toastElementFE.removeClass("d-none");
             setTimeout(function () {
               toastElementFE.removeClass("d-none");
@@ -154,7 +157,7 @@ $this->load->view("templates/leftnav");
             }, 300);
             setTimeout(function () {
               $('#customToastFEClose').alert("close");
-              location.reload();
+              // location.reload();
             }, 2500);
 
           } else {
@@ -165,7 +168,7 @@ $this->load->view("templates/leftnav");
             }, 300);
             setTimeout(function () {
               $('#customToastFEClose').alert("close");
-              location.reload();
+              // location.reload();
             }, 2500);
           }
         });
@@ -177,10 +180,11 @@ $this->load->view("templates/leftnav");
   function blockSelectedYears() {
     const selectedYears = getSelectedYears();
     if (selectedYears.length > 0) {
-      $.post("../controller/FinancialYear.php?fy_action=block", {
+      $.post(`${baseUrl}admin/FinancialYearController/block_multiple`, {
         ids: selectedYears
       },
         function (data, status) {
+          console.log(status)
           if (status == "success") {
             console.log(status);
             // toastElementFE.removeClass("d-none");
@@ -191,7 +195,7 @@ $this->load->view("templates/leftnav");
             }, 300);
             setTimeout(function () {
               $('#customToastFEClose').alert("close");
-              location.reload();
+              // location.reload();
             }, 2500);
 
           } else {
@@ -226,10 +230,11 @@ $this->load->view("templates/leftnav");
           const proceed = prompt('Type "confirm delete all", To proceed with deleting all selected Financial Years:');
           if (proceed === "confirm delete all") {
             // User confirmed deletion, proceed with the deletion
-            $.post("../controller/FinancialYear.php?fy_action=delete", {
+            $.post(`${baseUrl}admin/FinancialYearController/delete_multiple`, {
               ids: selectedYears
             },
               function (data, status) {
+                console.log()
                 if (status == "success") {
                   console.log(status);
                   // toastElementFE.removeClass("d-none");
