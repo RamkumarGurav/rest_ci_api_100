@@ -23,11 +23,25 @@ defined('BASEPATH') or exit ('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = "http://" . $_SERVER['HTTP_HOST'];
+// $config['base_url'] = "http://" . $_SERVER['HTTP_HOST'];
 
-$config['base_url'] .= preg_replace('@/+$@', '', dirname($_SERVER['SCRIPT_NAME'])) . '/';
-// $config['base_url'] = 'http://localhost/ciaps101/';
+// $config['base_url'] .= preg_replace('@/+$@', '', dirname($_SERVER['SCRIPT_NAME'])) . '/';
+// $config['base_url'] = 'http://localhost:8000/';
 
+$allowed_domains = array();
+$default_domain = 'localhost:8000/';
+
+if (in_array($_SERVER['HTTP_HOST'], $allowed_domains, TRUE)) {
+  $domain = $_SERVER['HTTP_HOST'];
+} else {
+  $domain = $default_domain;
+}
+
+if (!empty ($_SERVER['HTTPS'])) {
+  $config['base_url'] = 'https://' . $domain;
+} else {
+  $config['base_url'] = 'http://' . $domain;
+}
 /*
 |--------------------------------------------------------------------------
 | Index File

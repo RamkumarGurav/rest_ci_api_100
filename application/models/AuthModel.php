@@ -17,7 +17,7 @@ class AuthModel extends CI_Model
 
     $this->db->where('email', $username);
     $this->db->where('password', $password);
-    $q = $this->db->get('user');
+    $q = $this->db->get('users');
 
     if ($q->num_rows() > 0) {
       return $q->row_array();

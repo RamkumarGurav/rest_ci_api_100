@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') or exit ('No direct script access allowed');
-class FinancialYearController extends CI_Controller
+class ApiFinancialYearController extends CI_Controller
 {
 
 
@@ -9,52 +9,39 @@ class FinancialYearController extends CI_Controller
     parent::__construct();
     $this->load->model('CommonModel', 'model');
   }
-  public function index()
+
+  public function findAllActive_get()
   {
 
-    $allYears = $this->model->findAllByMultipleColumnNamesAndOrderByWithPagination("years");
-    $allYears = $this->model->findAllByMultipleColumnNamesAndOrderByWithPagination("years", ["status" => "1"]);
-    $allYears = $this->model->findAllByMultipleColumnNamesAndOrderByWithPagination("years", ["status" => "1"], ["id" => "ASC"]);
-    $allYears = $this->model->findAllByMultipleColumnNamesAndOrderByWithPagination("years", ["status" => "1"], ["id" => "ASC"], 1);
-    $allYears = $this->model->findAllByMultipleColumnNamesAndOrderByWithPagination("years", null, ["id" => "ASC"]);
-    $response = $this->model->findAllByMultipleColumnNamesAndOrderByWithPagination("years", null, null, 10);
-    $baseUrl = base_url();
-    // echo "<pre> <br>";
-    // print_r($response);
-    // exit;
-    $this->load->view('FinancialYear/index', ["response" => $response, "baseUrl" => $baseUrl]);
+    $response = $this->model->findAllByMultipleColumnNamesAndOrderByWithPagination("years", ["status" => "1"]);
+
+
+    $this->output
+      ->set_content_type('application/json', 'utf-8')
+      ->set_output(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES))
+      ->_display();
+    exit;
   }
-
-  public function getOneById($id)
+  public function findOneActive_get($id)
   {
-    $result = $this->model->findOneByMultipleColumnNames("years", ["id" => $id]);
+    $response = $this->model->findOneByMultipleColumnNames("years", ["id" => $id, "status" => '1']);
 
 
 
 
-    if (empty ($result)) {
-      $response = ["status" => false, "message" => "Oops, Sorry! No Financial Years Found"];
+    // if ($response['status'] == false) {
+    //   $this->output->set_status_header(500);
+    // }
 
-      $this->output
-        ->set_status_header(200)
-        ->set_content_type('application/json', 'utf-8')
-        ->set_output(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES))
-        ->_display();
-      exit;
+    // if ($response['data'] == null) {
+    //   $response['message'] = "Resource Not Found";
+    //   $this->output->set_status_header(404);
+    // }
 
-    } else {
-
-      $response = ["status" => true, "data" => $result];
-
-      $this->output
-        ->set_status_header(200)
-        ->set_content_type('application/json', 'utf-8')
-        ->set_output(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES))
-        ->_display();
-      exit;
-    }
-
-
+    $this->output
+      ->set_content_type('application/json', 'utf-8')
+      ->set_output(json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES))
+      ->_display();
     exit;
 
   }

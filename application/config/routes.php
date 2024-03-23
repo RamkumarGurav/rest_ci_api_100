@@ -51,21 +51,33 @@ defined('BASEPATH') or exit ('No direct script access allowed');
 */
 $route['default_controller'] = 'AuthController';
 $route['404_override'] = '';
-$route['translate_uri_dashes'] = FALSE;
+$route['translate_uri_dashes'] = TRUE;
 
 //{--------------ADMIN--------------
 $route['login'] = 'AuthController/login';
+$route['logout'] = 'AuthController/logout';
+$route['admin'] = 'admin/DashboardController/index';
 $route['admin/dashboard'] = 'admin/DashboardController/index';
 $route['admin/financial-years/listing'] = 'admin/FinancialYearController/index';
 $route['admin/albums/listing'] = 'admin/AlbumController/index';
 $route['admin/gallery/listing'] = 'admin/GalleryController/index';
 //--------------------------------------------------}
 
-//{--------------public api--------------
-$route['api/test'] = 'api/ApiDemoController/index';
-$route['api/fy'] = 'api/ApiFinancialYear/getAllActive';
-$route['api/posts']['POST'] = 'api/ApiPostsController/createOne';
-$route['api/posts']['GET'] = 'api/ApiPostsController/getAll';
-$route['api/posts/(:num)']['GET'] = 'api/ApiPostsController/getOneById/$1';
-$route['api/posts/(:num)']['POST'] = 'api/ApiPostsController/updateOne/$1';
-$route['api/posts/(:num)']['DELETE'] = 'api/ApiPostsController/deleteOne/$1';
+//{--------------public api --------------
+$route['api/public/test'] = 'api/public/ApiDemoController/index';
+$route['api/years']['GET'] = 'api/ApiFinancialYearController/findAllActive_get';
+$route['api/years/(:num)']['GET'] = 'api/ApiFinancialYearController/findOneActive_get/$1';
+// $route['api/posts']['POST'] = 'api/ApiPostsController/createOne';
+// $route['api/posts']['GET'] = 'api/ApiPostsController/getAll';
+// $route['api/posts/(:num)']['GET'] = 'api/ApiPostsController/getOneById/$1';
+// $route['api/posts/(:num)']['POST'] = 'api/ApiPostsController/updateOne/$1';
+// $route['api/posts/(:num)']['DELETE'] = 'api/ApiPostsController/deleteOne/$1';
+
+// //{--------------public api useing REST_Controller--------------
+// $route['api/test'] = 'api/ApiDemoController/index';
+// $route['api/fy'] = 'api/ApiFinancialYear/getAllActive';
+// $route['api/posts']['POST'] = 'api/ApiPostsController/createOne';
+// $route['api/posts']['GET'] = 'api/ApiPostsController/getAll';
+// $route['api/posts/(:num)']['GET'] = 'api/ApiPostsController/getOneById/$1';
+// $route['api/posts/(:num)']['POST'] = 'api/ApiPostsController/updateOne/$1';
+// $route['api/posts/(:num)']['DELETE'] = 'api/ApiPostsController/deleteOne/$1';

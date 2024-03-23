@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Dashboard</title>
+  <title>APS | Dashboard</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
@@ -60,7 +60,7 @@
         </li>
         <li>
           <?php if (isset ($_SESSION['user'])): ?>
-            <form action="<?= base_url() . "auth/logout"; ?>" method="post">
+            <form action="<?= base_url() . "logout"; ?>" method="post">
               <button type="submit" class="btn btn-primary" name="logout">Logout</button>
             </form>
           <?php endif; ?>

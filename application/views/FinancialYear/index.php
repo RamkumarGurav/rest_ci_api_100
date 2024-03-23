@@ -39,74 +39,87 @@ $this->load->view("templates/leftnav");
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header d-flex justify-content-end align-items-center gap-2">
-              <a href="../financial-year/edit.php" type="button" class="btn btn-primary btn-sm">Add</a>
-              <button type="button" class="btn btn-success btn-sm mx-2"
-                onclick="activateSelectedYears()">Active</button>
+      <?php if ($response["status"] == false): ?>
+        <h1 class=" h3 font-weight-bold text-center text-danger">
+          <?= $response['message'] ?>
+        </h1>
+
+      <?php elseif (empty ($response['data'])): ?>
+        <h1 class=" h3 font-weight-bold text-center text-danger">Oops, Sorry! No Financial Years Found</h1>
+      <?php else: ?>
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header d-flex justify-content-end align-items-center gap-2">
+                <a href="../financial-year/edit.php" type="button" class="btn btn-primary btn-sm">Add</a>
+                <button type="button" class="btn btn-success btn-sm mx-2"
+                  onclick="activateSelectedYears()">Active</button>
 
 
-              <button type="button" class="btn btn-danger btn-sm" onclick="blockSelectedYears()">Block</button>
-              <button type="button" class="btn btn-danger btn-sm mx-2" style="background-color:#FD7E14;"
-                onclick="deleteSelectedYears()">Delete</button>
-            </div>
-            <div class="card-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th class="position-relative"># <input type="checkbox" class="all-years-checkbox position-absolute"
-                        style="top:50%;left:50%;" onchange="selectAllYears(this)"></th>
-                    <th>Sl. No.</th>
-                    <th>Start Year</th>
-                    <th>End Year</th>
-                    <th>Financial Year</th>
-                    <th>Status</th>
-                  </tr>
-
-                </thead>
-                <tbody>
-                  <?php foreach ($allYears as $index => $year): ?>
+                <button type="button" class="btn btn-danger btn-sm" onclick="blockSelectedYears()">Block</button>
+                <button type="button" class="btn btn-danger btn-sm mx-2" style="background-color:#FD7E14;"
+                  onclick="deleteSelectedYears()">Delete</button>
+              </div>
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
                     <tr>
-                      <td class="position-relative px-4"><input type="checkbox" class="year-checkbox position-absolute"
-                          style="top:50%;left:50%;" value="<?php echo $year['id']; ?>"></td>
-                      <td><a href="<?=
-                        "
-                        http://localhost/xampp/MARS/appolopublicschool.com/admin/financial-year/edit.php?id={$year['id']}"
-                        ?>">
-                          <?php echo $index + 1; ?>
-                        </a></td>
-                      <td>
-                        <?php echo $year['start_year']; ?>
-                      </td>
-                      <td>
-                        <?php echo $year['end_year']; ?>
-                      </td>
-                      <td>
-                        <?php echo $year['fiscal_year']; ?>
-                      </td>
-                      <td>
-                        <?php echo $year['status'] == 1 ? 'Active' : 'Blocked'; ?>
-                      </td>
+                      <th class="position-relative"># <input type="checkbox" class="all-years-checkbox position-absolute"
+                          style="top:50%;left:50%;" onchange="selectAllYears(this)"></th>
+                      <th>Sl. No.</th>
+                      <th>Start Year</th>
+                      <th>End Year</th>
+                      <th>Financial Year</th>
+                      <th>Status</th>
                     </tr>
-                  <?php endforeach; ?>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <th>#</th>
-                    <th>Sl. No.</th>
-                    <th>Start Year</th>
-                    <th>End Year</th>
-                    <th>Financial Year</th>
-                    <th>Status</th>
-                  </tr>
-                </tfoot>
-              </table>
+
+                  </thead>
+                  <tbody>
+
+                    <?php foreach ($response['data'] as $index => $year): ?>
+                      <tr>
+                        <td class="position-relative px-4"><input type="checkbox" class="year-checkbox position-absolute"
+                            style="top:50%;left:50%;" value="<?php echo $year['id']; ?>"></td>
+                        <td><a href="<?=
+                          "
+                        http://localhost/xampp/MARS/appolopublicschool.com/admin/financial-year/edit.php?id={$year['id']}"
+                          ?>">
+                            <?php echo $index + 1; ?>
+                          </a></td>
+                        <td>
+                          <?php echo $year['start_year']; ?>
+                        </td>
+                        <td>
+                          <?php echo $year['end_year']; ?>
+                        </td>
+                        <td>
+                          <?php echo $year['fiscal_year']; ?>
+                        </td>
+                        <td>
+                          <?php echo $year['status'] == 1 ? 'Active' : 'Blocked'; ?>
+                        </td>
+                      </tr>
+                    <?php endforeach; ?>
+
+
+
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th>#</th>
+                      <th>Sl. No.</th>
+                      <th>Start Year</th>
+                      <th>End Year</th>
+                      <th>Financial Year</th>
+                      <th>Status</th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      <?php endif; ?>
     </div>
   </section>
 </div>
@@ -115,8 +128,9 @@ $this->load->view("templates/leftnav");
 <?php $this->load->view("templates/footer"); ?>
 <script>
   var toastElementFE = $("#customToastFE");
-  var numOfYears = "<?php echo count($allYears); ?>";
+  var numOfYears = "<?php echo count($response['data']); ?>";
   var baseUrl = "<?php echo $baseUrl; ?>";
+  console.log(baseUrl);
 
   function getSelectedYears() {
     const selectedYears = [];
@@ -146,8 +160,6 @@ $this->load->view("templates/leftnav");
         ids: selectedYears
       },
         function (data, status) {
-          console.log(data);
-          console.log(status);
           if (data.status == true) {
             // toastElementFE.removeClass("d-none");
             setTimeout(function () {
@@ -184,9 +196,7 @@ $this->load->view("templates/leftnav");
         ids: selectedYears
       },
         function (data, status) {
-          console.log(status)
-          if (status == "success") {
-            console.log(status);
+          if (data.status == true) {
             // toastElementFE.removeClass("d-none");
             setTimeout(function () {
               toastElementFE.removeClass("d-none");
@@ -234,9 +244,7 @@ $this->load->view("templates/leftnav");
               ids: selectedYears
             },
               function (data, status) {
-                console.log()
-                if (status == "success") {
-                  console.log(status);
+                if (data.status == true) {
                   // toastElementFE.removeClass("d-none");
                   setTimeout(function () {
                     toastElementFE.removeClass("d-none");
@@ -245,7 +253,7 @@ $this->load->view("templates/leftnav");
                   }, 300);
                   setTimeout(function () {
                     $('#customToastFEClose').alert("close");
-                    location.reload();
+                    // location.reload();
                   }, 2500);
                 } else {
                   setTimeout(function () {
@@ -255,7 +263,7 @@ $this->load->view("templates/leftnav");
                   }, 300);
                   setTimeout(function () {
                     $('#customToastFEClose').alert("close");
-                    location.reload();
+                    // location.reload();
                   }, 2500);
                 }
               });
@@ -277,12 +285,11 @@ $this->load->view("templates/leftnav");
           const proceed = prompt('Type "confirm delete", To proceed with deleting the selected Years:');
           if (proceed === "confirm delete") {
             // User confirmed deletion, proceed with the deletion
-            $.post("../controller/FinancialYear.php?fy_action=delete", {
+            $.post(`${baseUrl}admin/FinancialYearController/delete_multiple`, {
               ids: selectedYears
             },
               function (data, status) {
-                if (status == "success") {
-                  console.log(status);
+                if (data.status == true) {
                   // toastElementFE.removeClass("d-none");
                   setTimeout(function () {
                     toastElementFE.removeClass("d-none");
@@ -291,7 +298,7 @@ $this->load->view("templates/leftnav");
                   }, 300);
                   setTimeout(function () {
                     $('#customToastFEClose').alert("close");
-                    location.reload();
+                    // location.reload();
                   }, 2500);
                 } else {
                   setTimeout(function () {
@@ -301,7 +308,7 @@ $this->load->view("templates/leftnav");
                   }, 300);
                   setTimeout(function () {
                     $('#customToastFEClose').alert("close");
-                    location.reload();
+                    // location.reload();
                   }, 2500);
                 }
               });
