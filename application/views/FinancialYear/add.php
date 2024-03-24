@@ -46,7 +46,7 @@ $this->load->view("templates/leftnav");
           <div class="card card-warning">
             <div class="card-header">
               <h3 class="card-title">
-                <?= $yearData != null ? "Added Financial Year" : "Add Financial Year" ?>
+                Add Financial Year
               </h3>
             </div>
             <!-- /.card-header -->
@@ -57,7 +57,7 @@ $this->load->view("templates/leftnav");
 
 
               <!-- <form action="" method="post"> -->
-              <?= form_open('FinancialYearController/add_post', ['method' => 'post', 'class' => ' ']); ?>
+              <?= form_open('admin/FinancialYearController/add_get', ['method' => 'post', 'class' => ' ']); ?>
 
 
               <div class="row">
@@ -68,8 +68,7 @@ $this->load->view("templates/leftnav");
                   <div class="form-group">
                     <label>Start Year</label>
                     <input type="text" class="form-control" name="start_year" id="start_year"
-                      value="<?= $yearData != null ? $yearData["start_year"] : "" ?>" required
-                      placeholder=" Enter Start Year...">
+                      value="<?= set_value("start_year") ?>" required placeholder=" Enter Start Year...">
                   </div>
                   <?= form_error('start_year') ?>
                 </div>
@@ -80,9 +79,9 @@ $this->load->view("templates/leftnav");
                   <div class="form-group">
                     <label>End Year</label>
                     <input type="text" class="form-control" name="end_year" id="end_year"
-                      value="<?= $yearData != null ? $yearData["end_year"] : "" ?>" required
-                      placeholder="Enter End Year...">
+                      value="<?= set_value("end_year") ?>" required placeholder="Enter End Year...">
                   </div>
+                  <?= form_error('end_year') ?>
                 </div>
               </div>
 
@@ -95,9 +94,9 @@ $this->load->view("templates/leftnav");
                   <div class="form-group">
                     <label>Fiscal Year</label>
                     <input type="text" class="form-control" name="fiscal_year" id="fiscal_year"
-                      value="<?= $yearData != null ? $yearData["fiscal_year"] : "" ?>" required
-                      placeholder="Fiscal Year.." readonly>
+                      value="<?= set_value("fiscal_year") ?>" required placeholder="Fiscal Year.." readonly>
                   </div>
+                  <?= form_error('fiscal_year') ?>
                 </div>
               </div>
 
@@ -110,18 +109,19 @@ $this->load->view("templates/leftnav");
                   <label class="form-check-label">Select Status</label>
                   <div class="form-group  ">
                     <div class="form-check mr-5">
-                      <input class="form-check-input" type="radio" name="status" required value="1" <?= ($yearData != null && $yearData["status"] == 1) ? "checked" : "checked" ?>>
+                      <input class="form-check-input" type="radio" name="status" required value="1" checked>
                       <label class=" form-check-label">Active</label>
                     </div>
                     <div class="form-check">
-                      <input class="form-check-input" type="radio" name="status" required value="0" <?= ($yearData != null && $yearData["status"] == 0) ? "checked" : "" ?>>
+                      <input class="form-check-input" type="radio" name="status" required value="0">
                       <label class="form-check-label">Block</label>
                     </div>
 
                   </div>
+                  <?= form_error('status') ?>
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary" name="submit_year_btn">Submit</button>
+              <button type="submit" class="btn btn-primary" name="createYear">Submit</button>
               <?= form_close(); ?>
               <!-- </form> -->
             </div>

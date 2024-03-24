@@ -12,19 +12,89 @@ class FinancialYearController extends CI_Controller
   public function index()
   {
 
-    $allYears = $this->model->findAllByMultipleColumnNamesAndOrderByWithPagination("years");
-    $allYears = $this->model->findAllByMultipleColumnNamesAndOrderByWithPagination("years", ["status" => "1"]);
-    $allYears = $this->model->findAllByMultipleColumnNamesAndOrderByWithPagination("years", ["status" => "1"], ["id" => "ASC"]);
-    $allYears = $this->model->findAllByMultipleColumnNamesAndOrderByWithPagination("years", ["status" => "1"], ["id" => "ASC"], 1);
-    $allYears = $this->model->findAllByMultipleColumnNamesAndOrderByWithPagination("years", null, ["id" => "ASC"]);
-    $response = $this->model->findAllByMultipleColumnNamesAndOrderByWithPagination("years", null, null, 10);
+    $response = $this->model->findAllByMultipleColumnNamesAndOrderByWithPagination("years");
     $baseUrl = base_url();
-    // echo "<pre> <br>";
-    // print_r($response);
-    // exit;
     $this->load->view('FinancialYear/index', ["response" => $response, "baseUrl" => $baseUrl]);
   }
 
+
+  public function add_get()
+  {
+    $this->load->helper('form');
+
+    if (isset ($_POST["createYear"])) {
+      $this->load->library('form_validation');
+      $this->form_validation->set_rules('start_year', 'Start Year', 'required|trim|exact_length[4]|is_natural');
+      $this->form_validation->set_rules('end_year', 'End Year', 'required|trim|exact_length[4]|is_natural');
+      $this->form_validation->set_rules('fiscal_year', 'Fiscal Year', 'required|trim|exact_length[7]|regex_match[/^\d{4}-\d{2}$/]');
+      $body = $this->input->post();
+      $data = [
+        "start_year" => $body['start_year'],
+        "end_year" => $body['end_year'],
+        "fiscal_year" => $body['fiscal_year'],
+        "status" => $body['status']
+      ];
+
+
+
+      if ($this->form_validation->run()) {
+
+        $response = $this->model->createOne("years", $data);
+        if ($response['status'] == true) {
+          $this->session->set_flashdata('toast_type', 'alert-success');
+          $this->session->set_flashdata('toast_message', 'Successfully created new Financial Year');
+          redirect(base_url() . "admin/financial-years/listing");
+        } else {
+          echo "SOMETHING WENT WRONG! <br>";
+        }
+      } else {
+        $this->load->view('FinancialYear/add', ["yearData" => null, "baseUrl" => base_url()]);
+      }
+    } else {
+      $baseUrl = base_url();
+      $this->load->view('FinancialYear/add', ["yearData" => null, "baseUrl" => $baseUrl]);
+    }
+
+  }
+
+  public function add_post()
+  {
+    $this->load->helper('form');
+    $this->load->library('form_validation');
+    $this->form_validation->set_rules('start_year', 'Start Year', 'required|trim|exact_length[4]');
+    $this->form_validation->set_rules('end_year', 'End Year', 'required|trim|exact_length[4]');
+    $this->form_validation->set_rules('fiscal_year', 'Fiscal Year', 'required|trim|exact_length[7]');
+    $body = $this->input->post();
+    $data = [
+      "start_year" => $body['start_year'],
+      "end_year" => $body['end_year'],
+      "fiscal_year" => $body['fiscal_year']
+    ];
+
+    if ($this->form_validation->run()) {
+
+      $response = $this->model->createOne("years", $data);
+      if ($response['status'] == true) {
+        $this->redirect(base_url() . "admin/financial-years/listing");
+      } else {
+        echo "SOMETHING WENT WRONG! <br>";
+      }
+    } else {
+      $this->load->view('FinancialYear/add', ["yearData" => null, "baseUrl" => base_url()]);
+    }
+
+  }
+
+  public function update_get($id)
+  {
+    $yearResponse = $this->model->findOneByMultipleColumnNames("years", ["id" => $id]);
+    $baseUrl = base_url();
+    if ($yearResponse['status'] == true) {
+      $this->load->view('FinancialYear/edit', ["yearData" => $yearResponse['data'], "baseUrl" => $baseUrl]);
+    } else {
+      echo "SOMETHING WENT WRONG! <br>";
+    }
+  }
   public function getOneById($id)
   {
     $result = $this->model->findOneByMultipleColumnNames("years", ["id" => $id]);

@@ -60,7 +60,7 @@ class CommonModel extends CI_Model
     } else {
       $this->output->set_status_header(200);
       // No error, return the result array even if it's empty
-      return ["status" => true, "data" => $q->result_array()];
+      return ["status" => true, "count" => $q->num_rows(), "data" => $q->result_array(),];
     }
 
   }
@@ -118,6 +118,20 @@ class CommonModel extends CI_Model
         return ["status" => true, "data" => $q->row_array()];
       }
 
+    }
+  }
+
+
+
+  public function CreateOne($tableName, $data)
+  {
+    $q = $this->db->insert($tableName, $data);
+
+    if (!empty ($q)) {
+      return ["status" => true, "data" => $this->db->insert_id()];
+
+    } else {
+      return ["status" => false, "message" => "Failed to Insert"];
     }
   }
 

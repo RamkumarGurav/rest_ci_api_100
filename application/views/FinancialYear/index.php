@@ -1,4 +1,8 @@
 <?php
+if (!isset ($_SESSION["user"])) {
+  header("Location: {$baseUrl}admin");
+  exit();
+}
 $this->load->view("templates/header");
 $this->load->view("templates/leftnav");
 
@@ -51,7 +55,8 @@ $this->load->view("templates/leftnav");
           <div class="col-12">
             <div class="card">
               <div class="card-header d-flex justify-content-end align-items-center gap-2">
-                <a href="../financial-year/edit.php" type="button" class="btn btn-primary btn-sm">Add</a>
+                <a href="<?= $baseUrl . "admin/financial-years/add" ?>" type="button"
+                  class="btn btn-primary btn-sm">Add</a>
                 <button type="button" class="btn btn-success btn-sm mx-2"
                   onclick="activateSelectedYears()">Active</button>
 
@@ -81,8 +86,7 @@ $this->load->view("templates/leftnav");
                         <td class="position-relative px-4"><input type="checkbox" class="year-checkbox position-absolute"
                             style="top:50%;left:50%;" value="<?php echo $year['id']; ?>"></td>
                         <td><a href="<?=
-                          "
-                        http://localhost/xampp/MARS/appolopublicschool.com/admin/financial-year/edit.php?id={$year['id']}"
+                          $baseUrl . "admin/financial-years/update/" . $year['id']
                           ?>">
                             <?php echo $index + 1; ?>
                           </a></td>
@@ -165,11 +169,11 @@ $this->load->view("templates/leftnav");
             setTimeout(function () {
               toastElementFE.removeClass("d-none");
               toastElementFE.addClass(" alert-success");
-              $("#customToastFEClose").after("successfully Activated");
+              $("#customToastFEClose").after("Successfully Activated");
             }, 300);
             setTimeout(function () {
               $('#customToastFEClose').alert("close");
-              // location.reload();
+              location.reload();
             }, 2500);
 
           } else {
@@ -180,7 +184,7 @@ $this->load->view("templates/leftnav");
             }, 300);
             setTimeout(function () {
               $('#customToastFEClose').alert("close");
-              // location.reload();
+              location.reload();
             }, 2500);
           }
         });
@@ -201,11 +205,11 @@ $this->load->view("templates/leftnav");
             setTimeout(function () {
               toastElementFE.removeClass("d-none");
               toastElementFE.addClass(" alert-success");
-              $("#customToastFEClose").after("successfully Blocked");
+              $("#customToastFEClose").after("Successfully Blocked");
             }, 300);
             setTimeout(function () {
               $('#customToastFEClose').alert("close");
-              // location.reload();
+              location.reload();
             }, 2500);
 
           } else {
@@ -249,11 +253,11 @@ $this->load->view("templates/leftnav");
                   setTimeout(function () {
                     toastElementFE.removeClass("d-none");
                     toastElementFE.addClass(" alert-success");
-                    $("#customToastFEClose").after("successfully Deleted");
+                    $("#customToastFEClose").after("Successfully Deleted");
                   }, 300);
                   setTimeout(function () {
                     $('#customToastFEClose').alert("close");
-                    // location.reload();
+                    location.reload();
                   }, 2500);
                 } else {
                   setTimeout(function () {
@@ -263,7 +267,7 @@ $this->load->view("templates/leftnav");
                   }, 300);
                   setTimeout(function () {
                     $('#customToastFEClose').alert("close");
-                    // location.reload();
+                    location.reload();
                   }, 2500);
                 }
               });
@@ -294,11 +298,11 @@ $this->load->view("templates/leftnav");
                   setTimeout(function () {
                     toastElementFE.removeClass("d-none");
                     toastElementFE.addClass(" alert-success");
-                    $("#customToastFEClose").after("successfully Deleted");
+                    $("#customToastFEClose").after("Successfully Deleted");
                   }, 300);
                   setTimeout(function () {
                     $('#customToastFEClose').alert("close");
-                    // location.reload();
+                    location.reload();
                   }, 2500);
                 } else {
                   setTimeout(function () {
@@ -308,7 +312,7 @@ $this->load->view("templates/leftnav");
                   }, 300);
                   setTimeout(function () {
                     $('#customToastFEClose').alert("close");
-                    // location.reload();
+                    location.reload();
                   }, 2500);
                 }
               });
