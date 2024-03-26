@@ -13,7 +13,7 @@ class ApiFinancialYearController extends CI_Controller
   public function findAllActive_get()
   {
 
-    $response = $this->model->findAllByMultipleColumnNamesAndOrderByWithPagination("years", ["status" => "1"]);
+    $response = $this->model->findAllByMultipleColumnNamesAndOrderByWithPagination("aps_years", ["status" => "1"]);
 
 
     $this->output
@@ -24,7 +24,7 @@ class ApiFinancialYearController extends CI_Controller
   }
   public function findOneActive_get($id)
   {
-    $response = $this->model->findOneByMultipleColumnNames("years", ["id" => $id, "status" => '1']);
+    $response = $this->model->findOneByMultipleColumnNames("aps_years", ["id" => $id, "status" => '1']);
 
 
 

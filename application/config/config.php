@@ -29,7 +29,7 @@ defined('BASEPATH') or exit ('No direct script access allowed');
 // $config['base_url'] = 'http://localhost:8000/';
 
 $allowed_domains = array();
-$default_domain = 'localhost:8000/';
+$default_domain = 'localhost/xampp/MARS/rest_ci_api_100';
 
 if (in_array($_SERVER['HTTP_HOST'], $allowed_domains, TRUE)) {
   $domain = $_SERVER['HTTP_HOST'];

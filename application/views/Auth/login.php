@@ -1,3 +1,10 @@
+<?php
+
+if (isset ($_SESSION["user"])) {
+    header("Location: {$baseUrl}admin/dashboard");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -109,6 +116,8 @@
     <!-- AdminLTE App -->
     <script src="<?= base_url() . "assets/dist/js/adminlte.min.js" ?>"></script>
 
+
+    <?php $this->load->view("templates/toaster"); ?>
 
 </body>
 

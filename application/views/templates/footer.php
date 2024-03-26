@@ -35,12 +35,20 @@
 <script src="<?= base_url() . "assets/dist/js/demo.js" ?>
 ">
 </script>
-<!-- Page specific script -->
+
 <script>
-$(function() {
-  bsCustomFileInput.init();
-});
+  $(function () {
+    bsCustomFileInput.init();
+  });
 </script>
+
+<!-- TO AVOID PAGE RESUBMISSION WHEN REFRESHED -->
+<script>
+  if (window.history.replaceState) {
+    window.history.replaceState(null, null, window.location.href);
+  }
+</script>
+<!-- endcomment -->
 <?php include ('toaster.php'); ?>
 </body>
 

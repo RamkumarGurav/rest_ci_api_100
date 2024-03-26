@@ -11,7 +11,7 @@ class AuthController extends CI_Controller
 
   public function index()
   {
-    redirect('login');
+    redirect('/login');
 
   }
 
@@ -47,13 +47,13 @@ class AuthController extends CI_Controller
       $userData = $this->model->login($email, $password);
 
       if (empty ($userData) || $userData['status'] != 1) {
-        $this->session->set_flashdata("toastClass", "alert-danger");
-        $this->session->set_flashdata("toastMsg", "Wrong Username or Password");
+        $this->session->set_flashdata("toast_type", "alert-danger");
+        $this->session->set_flashdata("toast_message", "Wrong Username or Password");
         $this->load->view("Auth/login");
       } else {
         $this->session->set_userdata("user", $userData);
-        $this->session->set_flashdata("toastClass", "alert-success");
-        $this->session->set_flashdata("toastMsg", "Successfully Logged in");
+        $this->session->set_flashdata("toast_type", "alert-success");
+        $this->session->set_flashdata("toast_message", "Successfully Logged in");
         redirect("/admin/dashboard");
       }
 
@@ -69,7 +69,7 @@ class AuthController extends CI_Controller
   public function logout()
   {
     $this->session->sess_destroy();
-    redirect("login");
+    redirect("/login");
   }
 
 

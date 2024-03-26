@@ -75,9 +75,10 @@ $relative_path = str_replace(base_url(), '', current_url());
 
           </ul>
         </li>
-        <li class="nav-item <?= stripos(current_url(), "admin/financial-years") !== false ? "menu-open" : "" ?>">
+        <li
+          class="nav-item <?= (stripos(current_url(), "admin/financial-years") !== false) || (stripos(current_url(), "admin/FinancialYearController") !== false) ? "menu-open" : " " ?>">
           <a href="<?= base_url() . "admin/financial-years/listing" ?>"
-            class="nav-link    <?= stripos(current_url(), "admin/financial-years") !== false ? "active" : "" ?>">
+            class="nav-link    <?= (stripos(current_url(), "admin/financial-years") !== false) || (stripos(current_url(), "admin/FinancialYearController") !== false) ? "active" : "" ?>">
             <i class="nav-icon fas fa-copy"></i>
             <p>
               Financial Year
@@ -87,7 +88,7 @@ $relative_path = str_replace(base_url(), '', current_url());
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="<?= base_url() . "admin/financial-years/listing" ?>"
-                class="nav-link <?= stripos(current_url(), "admin/financial-years") !== false ? "active" : "" ?>">
+                class="nav-link <?= (stripos(current_url(), "admin/financial-years") !== false) || (stripos(current_url(), "admin/FinancialYearController") !== false) ? "active" : "" ?>">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Financial Year</p>
               </a>

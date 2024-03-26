@@ -60,7 +60,7 @@ $route['admin'] = 'admin/DashboardController/index';
 $route['admin/dashboard'] = 'admin/DashboardController/index';
 $route['admin/financial-years/listing'] = 'admin/FinancialYearController/index';
 $route['admin/financial-years/add'] = 'admin/FinancialYearController/add_get';
-$route['admin/financial-years/update/(:num)'] = 'admin/FinancialYearController/update_get/$1';
+$route['admin/financial-years/update/(:num)'] = 'admin/FinancialYearController/update/$1';
 $route['admin/albums/listing'] = 'admin/AlbumController/index';
 $route['admin/gallery/listing'] = 'admin/GalleryController/index';
 //--------------------------------------------------}

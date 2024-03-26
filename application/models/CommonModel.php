@@ -140,10 +140,14 @@ class CommonModel extends CI_Model
   {
     $this->db->where($column, $columnValue);
     $q = $this->db->update($tableName, $data);
-    if (!empty ($q)) {
-      return $this->findOneByColumnName($column, $columnValue);
+
+
+    if (empty ($q)) {
+      $this->output->set_status_header(500);
+      return ["status" => false, "message" => "Error While Uploading the Data"];
     } else {
-      return false;
+      $this->output->set_status_header(200);
+      return ["status" => true, "data" => $q->row_array()];
     }
   }
 
@@ -156,11 +160,15 @@ class CommonModel extends CI_Model
     }
 
     $q = $this->db->update($tableName, $data);
-    if (!empty ($q)) {
-      return true;
+    $error = $this->db->error();
+    if (!empty ($error['code'])) {
+      $error_message = $error['message'];
+      return ["status" => false, "message" => "Oops!.. Update Failed"]; // Or do whatever you gotta do here to raise an error
     } else {
-      return false;
+      return ["status" => true, "message" => "Successfully Updated!"];
     }
+
+
   }
 
 

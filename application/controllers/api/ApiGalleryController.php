@@ -17,7 +17,7 @@ class ApiGalleryController extends CI_Controller
     if (!empty ($this->input->get("album_id"))) {
 
       $album_id = $this->input->get("album_id");
-      $albumResponse = $this->model->findOneByMultipleColumnNames("albums", ["id" => $album_id, "status" => "1"]);
+      $albumResponse = $this->model->findOneByMultipleColumnNames("aps_albums", ["id" => $album_id, "status" => "1"]);
 
       if ($albumResponse['status'] == false) {
         $this->output
@@ -54,7 +54,7 @@ class ApiGalleryController extends CI_Controller
   }
   public function findOneActive_get($id)
   {
-    $response = $this->model->findOneByMultipleColumnNames("images", ["id" => $id, "status" => '1']);
+    $response = $this->model->findOneByMultipleColumnNames("aps_images", ["id" => $id, "status" => '1']);
 
 
 

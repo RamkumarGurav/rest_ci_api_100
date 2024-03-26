@@ -17,7 +17,7 @@ class ApiAlbumController extends CI_Controller
     if (!empty ($this->input->get("year_id"))) {
 
       $year_id = $this->input->get("year_id");
-      $yearResponse = $this->model->findOneByMultipleColumnNames("years", ["id" => $year_id, "status" => "1"]);
+      $yearResponse = $this->model->findOneByMultipleColumnNames("aps_years", ["id" => $year_id, "status" => "1"]);
 
       if ($yearResponse['status'] == false) {
         $this->output
@@ -50,7 +50,7 @@ class ApiAlbumController extends CI_Controller
   }
   public function findOneActive_get($id)
   {
-    $response = $this->model->findOneByMultipleColumnNames("albums", ["id" => $id, "status" => '1']);
+    $response = $this->model->findOneByMultipleColumnNames("aps_albums", ["id" => $id, "status" => '1']);
 
 
 

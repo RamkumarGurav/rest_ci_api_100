@@ -1,11 +1,5 @@
 <?php
 
-$this->load->helper('url');
-
-
-
-$currentURL = current_url();
-
-print_r($currentURL);
+echo "404 page NOt found <br>";
 
 ?>

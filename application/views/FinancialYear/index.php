@@ -1,6 +1,6 @@
 <?php
 if (!isset ($_SESSION["user"])) {
-  header("Location: {$baseUrl}admin");
+  header("Location: {$baseUrl}login");
   exit();
 }
 $this->load->view("templates/header");
@@ -65,17 +65,18 @@ $this->load->view("templates/leftnav");
                 <button type="button" class="btn btn-danger btn-sm mx-2" style="background-color:#FD7E14;"
                   onclick="deleteSelectedYears()">Delete</button>
               </div>
+
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                     <tr>
                       <th class="position-relative"># <input type="checkbox" class="all-years-checkbox position-absolute"
                           style="top:50%;left:50%;" onchange="selectAllYears(this)"></th>
-                      <th>Sl. No.</th>
-                      <th>Start Year</th>
-                      <th>End Year</th>
-                      <th>Financial Year</th>
-                      <th>Status</th>
+                      <th class="align-middle text-center">Sl. No.</th>
+                      <th class="align-middle text-center">Start Year</th>
+                      <th class="align-middle text-center">End Year</th>
+                      <th class="align-middle text-center">Financial Year</th>
+                      <th class="align-middle text-center">Status</th>
                     </tr>
 
                   </thead>
@@ -85,22 +86,23 @@ $this->load->view("templates/leftnav");
                       <tr>
                         <td class="position-relative px-4"><input type="checkbox" class="year-checkbox position-absolute"
                             style="top:50%;left:50%;" value="<?php echo $year['id']; ?>"></td>
-                        <td><a href="<?=
+                        <td class="align-middle text-center"><a href="<?=
                           $baseUrl . "admin/financial-years/update/" . $year['id']
                           ?>">
                             <?php echo $index + 1; ?>
                           </a></td>
-                        <td>
+                        <td class="align-middle text-center">
                           <?php echo $year['start_year']; ?>
                         </td>
-                        <td>
+                        <td class="align-middle text-center">
                           <?php echo $year['end_year']; ?>
                         </td>
-                        <td>
+                        <td class="align-middle text-center">
                           <?php echo $year['fiscal_year']; ?>
                         </td>
-                        <td>
-                          <?php echo $year['status'] == 1 ? 'Active' : 'Blocked'; ?>
+                        <td class="align-middle text-center">
+                          <?php echo $year['status'] == 1 ?
+                            '<div class="badge badge-sm bg-success">Active</div>' : '<div class="badge badge-sm bg-danger">blocked</div>'; ?>
                         </td>
                       </tr>
                     <?php endforeach; ?>
@@ -111,11 +113,11 @@ $this->load->view("templates/leftnav");
                   <tfoot>
                     <tr>
                       <th>#</th>
-                      <th>Sl. No.</th>
-                      <th>Start Year</th>
-                      <th>End Year</th>
-                      <th>Financial Year</th>
-                      <th>Status</th>
+                      <th class="align-middle text-center">Sl. No.</th>
+                      <th class="align-middle text-center">Start Year</th>
+                      <th class="align-middle text-center">End Year</th>
+                      <th class="align-middle text-center">Financial Year</th>
+                      <th class="align-middle text-center">Status</th>
                     </tr>
                   </tfoot>
                 </table>
