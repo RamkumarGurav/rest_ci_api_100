@@ -133,7 +133,7 @@ $this->load->view("templates/leftnav");
 
 <?php $this->load->view("templates/footer"); ?>
 <script>
-  var toastElementFE = $("#customToastFE");
+  // var toastElementFE = $("#customToastFE");
   var numOfYears = "<?php echo count($response['data']); ?>";
   var baseUrl = "<?php echo $baseUrl; ?>";
   console.log(baseUrl);
@@ -167,27 +167,23 @@ $this->load->view("templates/leftnav");
       },
         function (data, status) {
           if (data.status == true) {
-            // toastElementFE.removeClass("d-none");
+            // ===============> showToast is from toaster.php file <===============
+            showToast("alert-success", "Successfully Activated");
+            // ===============> end <===============
             setTimeout(function () {
-              toastElementFE.removeClass("d-none");
-              toastElementFE.addClass(" alert-success");
-              $("#customToastFEClose").after("Successfully Activated");
-            }, 300);
-            setTimeout(function () {
-              $('#customToastFEClose').alert("close");
               location.reload();
-            }, 2500);
+            }, 3000);
+
+
 
           } else {
+            // ===============> showToast is from toaster.php file <===============
+            showToast("alert-danger", "Failed to Activate");
+            // ===============> end <===============
             setTimeout(function () {
-              toastElementFE.removeClass("d-none");
-              toastElementFE.addClass(" alert-danger");
-              $("#customToastFEClose").after("Failed to Activate");
-            }, 300);
-            setTimeout(function () {
-              $('#customToastFEClose').alert("close");
               location.reload();
-            }, 2500);
+            }, 3000);
+
           }
         });
     } else {
@@ -203,27 +199,20 @@ $this->load->view("templates/leftnav");
       },
         function (data, status) {
           if (data.status == true) {
-            // toastElementFE.removeClass("d-none");
+            // ===============> showToast is from toaster.php file <===============
+            showToast("alert-success", "Successfully Blocked");
+            // ===============> end <===============
             setTimeout(function () {
-              toastElementFE.removeClass("d-none");
-              toastElementFE.addClass(" alert-success");
-              $("#customToastFEClose").after("Successfully Blocked");
-            }, 300);
-            setTimeout(function () {
-              $('#customToastFEClose').alert("close");
               location.reload();
-            }, 2500);
+            }, 3000);
 
           } else {
+            // ===============> showToast is from toaster.php file <===============
+            showToast("alert-danger", "Failed to Block");
+            // ===============> end <===============
             setTimeout(function () {
-              toastElementFE.removeClass("d-none");
-              toastElementFE.addClass(" alert-danger");
-              $("#customToastFEClose").after("Failed to Block");
-            }, 300);
-            setTimeout(function () {
-              $('#customToastFEClose').alert("close");
               location.reload();
-            }, 2500);
+            }, 3000);
           }
         });
     } else {
@@ -251,26 +240,19 @@ $this->load->view("templates/leftnav");
             },
               function (data, status) {
                 if (data.status == true) {
-                  // toastElementFE.removeClass("d-none");
+                  // ===============> showToast is from toaster.php file <===============
+                  showToast("alert-success", "Successfully Deleted");
+                  // ===============> end <===============
                   setTimeout(function () {
-                    toastElementFE.removeClass("d-none");
-                    toastElementFE.addClass(" alert-success");
-                    $("#customToastFEClose").after("Successfully Deleted");
-                  }, 300);
-                  setTimeout(function () {
-                    $('#customToastFEClose').alert("close");
                     location.reload();
-                  }, 2500);
+                  }, 3000);
                 } else {
+                  // ===============> showToast is from toaster.php file <===============
+                  showToast("alert-danger", "Failed to Delete");
+                  // ===============> end <===============
                   setTimeout(function () {
-                    toastElementFE.removeClass("d-none");
-                    toastElementFE.addClass(" alert-danger");
-                    $("#customToastFEClose").after("Failed to Delete");
-                  }, 300);
-                  setTimeout(function () {
-                    $('#customToastFEClose').alert("close");
                     location.reload();
-                  }, 2500);
+                  }, 3000);
                 }
               });
           } else {
@@ -296,26 +278,19 @@ $this->load->view("templates/leftnav");
             },
               function (data, status) {
                 if (data.status == true) {
-                  // toastElementFE.removeClass("d-none");
+                  // ===============> showToast is from toaster.php file <===============
+                  showToast("alert-success", "Successfully Deleted");
+                  // ===============> end <===============
                   setTimeout(function () {
-                    toastElementFE.removeClass("d-none");
-                    toastElementFE.addClass(" alert-success");
-                    $("#customToastFEClose").after("Successfully Deleted");
-                  }, 300);
-                  setTimeout(function () {
-                    $('#customToastFEClose').alert("close");
                     location.reload();
-                  }, 2500);
+                  }, 3000);
                 } else {
+                  // ===============> showToast is from toaster.php file <===============
+                  showToast("alert-danger", "Failed to Delete");
+                  // ===============> end <===============
                   setTimeout(function () {
-                    toastElementFE.removeClass("d-none");
-                    toastElementFE.addClass(" alert-danger");
-                    $("#customToastFEClose").after("Failed to Delete");
-                  }, 300);
-                  setTimeout(function () {
-                    $('#customToastFEClose').alert("close");
                     location.reload();
-                  }, 2500);
+                  }, 3000);
                 }
               });
           } else {

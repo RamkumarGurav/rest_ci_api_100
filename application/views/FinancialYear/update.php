@@ -15,7 +15,17 @@ $this->load->view("templates/leftnav");
 
 ?>
 
+<!-- <style>
+  .toast {
+    position: relative;
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in-out;
+  }
 
+  .toast.show-toast {
+    transform: translateX(0);
+  }
+</style> -->
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -57,9 +67,9 @@ $this->load->view("templates/leftnav");
 
 
               <!-- <form action="" method="post"> -->
-              <?= form_open("admin/FinancialYearController/update/17", ['method' => 'post', 'class' => ' ']); ?>
+              <?= form_open("admin/FinancialYearController/update/{$yearData['id']}", ['method' => 'post', 'class' => ' ', "id" => "yearUpdateForm"]); ?>
 
-              <input class="none" style="display:none;" name="id" value="<?= $yearData['id'] ?>" />
+              <!-- <input class="none" style="display:none;" name="id" value="<?= $yearData['id'] ?>" /> -->
               <div class="row">
 
 
@@ -162,7 +172,7 @@ $this->load->view("templates/footer");
     function calculateFiscalYear(startYear, endYear) {
       // Extracting last two digits of start and end years
       let startYearLastTwoDigits = startYear.toString().substr(0, 4);
-      let endYearLastTwoDigits = endYear.toString().substr(-2);
+      let endYearLastTwoDigits = endYear.toString().substr(2, 2);
 
       // Constructing fiscal year string
       let fiscalYear = startYearLastTwoDigits + '-' + endYearLastTwoDigits;
@@ -173,9 +183,9 @@ $this->load->view("templates/footer");
 
     // Function to update fiscal year field
     function updateFiscalYear() {
-      // Getting start year and end year values
-      let startYear = $('#start_year').val();
-      let endYear = $('#end_year').val();
+      // Getting start year and end year values with trimmed values
+      let startYear = $('#start_year').val().trim();
+      let endYear = $('#end_year').val().trim();
 
       // Checking if start year and end year are not empty
       if (startYear !== '' && endYear !== '') {
@@ -194,5 +204,61 @@ $this->load->view("templates/footer");
 
     // Calling updateFiscalYear function on page load
     updateFiscalYear();
+
+
+
+
+
+  });
+
+
+
+
+
+</script>
+
+<script>
+  $(document).ready(function () {
+
+
+    // Function to trim input values
+    function trimInputs() {
+      $('input[type="text"]').each(function () {
+        $(this).val($(this).val().trim());
+      });
+    }
+
+    // Function to check if there are any changes in the form
+    function hasChanges() {
+      var oldData = <?= json_encode($yearData) ?>; // Assuming $yearData is PHP array containing old data
+      delete oldData.id;
+      delete oldData.added_on;
+      delete oldData.updated_on;
+
+      var formData = $('#yearUpdateForm').serializeArray();
+      var newData = {};
+      // Convert serialized form data to object
+      $.each(formData, function (_, item) {
+        newData[item.name] = item.value.trim();
+      });
+
+
+
+      // Compare oldData and newData
+      return JSON.stringify(oldData) !== JSON.stringify(newData);
+    }
+
+    // Submit form only if there are changes
+    $('#yearUpdateForm').on('submit', function (e) {
+      trimInputs(); // Trim inputs before submission
+      console.log(hasChanges())
+      if (!hasChanges()) {
+        e.preventDefault(); // Prevent form submission
+        // ===============> showToast is from toaster.php file <===============
+        showToast("alert-warning", "Nothing new to Submit");
+        // ===============> end <===============
+
+      }
+    });
   });
 </script>

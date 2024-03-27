@@ -154,7 +154,7 @@ $this->load->view("templates/footer");
     function calculateFiscalYear(startYear, endYear) {
       // Extracting last two digits of start and end years
       let startYearLastTwoDigits = startYear.toString().substr(0, 4);
-      let endYearLastTwoDigits = endYear.toString().substr(-2);
+      let endYearLastTwoDigits = endYear.toString().substr(2, 2);
 
       // Constructing fiscal year string
       let fiscalYear = startYearLastTwoDigits + '-' + endYearLastTwoDigits;
@@ -165,9 +165,9 @@ $this->load->view("templates/footer");
 
     // Function to update fiscal year field
     function updateFiscalYear() {
-      // Getting start year and end year values
-      let startYear = $('#start_year').val();
-      let endYear = $('#end_year').val();
+      // Getting start year and end year values with trimmed values
+      let startYear = $('#start_year').val().trim();
+      let endYear = $('#end_year').val().trim();
 
       // Checking if start year and end year are not empty
       if (startYear !== '' && endYear !== '') {
@@ -186,5 +186,8 @@ $this->load->view("templates/footer");
 
     // Calling updateFiscalYear function on page load
     updateFiscalYear();
+
+
+
   });
 </script>

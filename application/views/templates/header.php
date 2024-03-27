@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="<?= base_url() . "assets/plugins/daterangepicker/daterangepicker.css" ?>">
   <!-- summernote -->
 
-
+  <script src="https://kit.fontawesome.com/4fa732e726.js" crossorigin="anonymous"></script>
 
 
 
